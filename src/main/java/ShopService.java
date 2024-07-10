@@ -32,10 +32,13 @@ public class ShopService {
         int count = 0;
         for (Product product : order.products().keySet()) {
             if (productRepo.getAll().containsKey(product)) {
-                count++;
+                if (productRepo.getSingle(product).getValue() >= order.products().get(product)) {
+                    count++;
+                }
             }
         }
         if (order.products().size() == count ) {
+            System.out.println("Order fully received.");
             return true;
         }
         System.out.println("Ordered Products not available.");

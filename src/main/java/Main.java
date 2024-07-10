@@ -31,7 +31,6 @@ public class Main {
         shopService.isOrderAvailable(shopService.getOrderRepo().getSingle(fruitOrder.id()));
         shopService.receiveOrder(shopService.getOrderRepo().getSingle(vegetableOrder.id()));
 
-
         System.out.println(shopService.getOrderRepo());
         System.out.println(shopService.getProductRepo());
     }

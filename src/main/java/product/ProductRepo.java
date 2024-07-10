@@ -3,11 +3,9 @@ package product;
 import java.util.*;
 
 public class ProductRepo {
-//    private final List<product.Product> products;
     private final Map<Product, Integer> products;
 
     public ProductRepo() {
-//        products = new ArrayList<>();
         products = new HashMap<>();
     }
 
@@ -16,7 +14,6 @@ public class ProductRepo {
     }
 
     public void add(Product product){
-//        products.add(product);
         products.compute(product, (k, v) -> (v == null) ? 1 : v + 1);
     }
 
@@ -24,17 +21,14 @@ public class ProductRepo {
         products.remove(product);
     }
 
-    public Product getSingle(String name) {
-        for (Product product : products.keySet()) {
-            if (product.name().equals(name)) {
-                return product;
-            }
+    public Map.Entry<Product, Integer> getSingle(Product product) {
+        if (products.get(product) != null) {
+            return Map.entry(product, products.get(product));
         }
         return null;
     }
 
     public Map<Product, Integer> getAll() {
-//        return products;
         return products;
     }
 
