@@ -1,20 +1,23 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+package product;
+
+import java.util.*;
 
 public class ProductRepo {
-    private final List<Product> products;
+//    private final List<product.Product> products;
+    private final Map<Product, Integer> products;
 
     public ProductRepo() {
-        products = new ArrayList<>();
+//        products = new ArrayList<>();
+        products = new HashMap<>();
     }
 
-    public ProductRepo(List<Product> products) {
+    public ProductRepo(Map<Product, Integer> products) {
         this.products = products;
     }
 
     public void add(Product product){
-        products.add(product);
+//        products.add(product);
+        products.compute(product, (k, v) -> (v == null) ? 1 : v + 1);
     }
 
     public void remove(Product product){
@@ -22,7 +25,7 @@ public class ProductRepo {
     }
 
     public Product getSingle(String name) {
-        for (Product product : products) {
+        for (Product product : products.keySet()) {
             if (product.name().equals(name)) {
                 return product;
             }
@@ -30,7 +33,8 @@ public class ProductRepo {
         return null;
     }
 
-    public List<Product> getAll() {
+    public Map<Product, Integer> getAll() {
+//        return products;
         return products;
     }
 
@@ -49,7 +53,7 @@ public class ProductRepo {
 
     @Override
     public String toString() {
-        return "ProductRepo{" +
+        return "product.ProductRepo{" +
                 "products=" + products +
                 '}';
     }

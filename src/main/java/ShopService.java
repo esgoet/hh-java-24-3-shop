@@ -1,3 +1,8 @@
+import order.Order;
+import order.OrderRepo;
+import product.Product;
+import product.ProductRepo;
+
 public class ShopService {
     OrderRepo orderRepo;
     ProductRepo productRepo;
@@ -15,10 +20,18 @@ public class ShopService {
         orderRepo.add(order);
     }
 
+    public void receiveOrder(Order order) {
+        for (Product product : order.products().keySet()) {
+            for (int i = 0; i < order.products().get(product); i++) {
+                productRepo.add(product);
+            }
+        }
+    }
+
     public boolean isOrderAvailable(Order order) {
         int count = 0;
-        for (Product product : order.products()) {
-            if (productRepo.getAll().contains(product)) {
+        for (Product product : order.products().keySet()) {
+            if (productRepo.getAll().containsKey(product)) {
                 count++;
             }
         }
@@ -29,4 +42,11 @@ public class ShopService {
         return false;
     }
 
+    public OrderRepo getOrderRepo() {
+        return orderRepo;
+    }
+
+    public ProductRepo getProductRepo () {
+        return productRepo;
+    }
 }
